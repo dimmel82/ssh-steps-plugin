@@ -431,6 +431,55 @@ node {
   }
 }
 ```
+
+=== sshRename
+
+Rename a file or directory on the remote host.
+
+==== Input
+
+[%header,cols=3*]
+|===
+|Key
+|Type
+|Description
+
+|remote
+|Remote, *Mandatory*, Refer to the Remote config for more details.
+|Host config to run the command on.
+
+|oldPath
+|String, *Mandatory*
+|Original file or directory path on the remote node
+
+|newPath
+|String, *Mandatory*
+|New file or directory path on the remote node
+
+|failOnError
+|boolean, default: `true`.
+|If this is `false`, no job failure would occur though there is an error while running the command.
+
+|dryRun
+|boolean, default: `false`
+|If this is true, no actual connection or operation is performed.
+|===
+
+==== Example
+
+```groovy
+node {
+  def remote = [:]
+  remote.name = 'test'
+  remote.host = 'test.domain.com'
+  remote.user = 'root'
+  remote.password = 'password'
+  remote.allowAnyHosts = true
+  stage('Remote SSH') {
+    sshRename remote: remote, oldPath: "abc.sh", oldPath: "def.sh"
+  }
+}
+```
 == Examples
 
 === withCredentials
